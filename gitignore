@@ -1,3 +1,14 @@
-.idea
-.code
-.vscode
+# Ignorar pastas de configuração de IDE
+.idea/
+.vscode/
+.code/
+
+# Ignorar arquivos compilados e de build
+out/
+*.class
+
+# Ignorar arquivos temporários do sistema ou editor
+*.log
+*.tmp
+*.swp
+.DS_Store
