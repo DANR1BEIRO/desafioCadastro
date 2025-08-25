@@ -1,0 +1,7 @@
+Digite nome e sobrenome do pet:
+Tipo do pet:
+Sexo do pet:
+Endereço que o pet foi encontrado:
+Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses):
+Peso aproximado do pet:
+Raça do pet:
