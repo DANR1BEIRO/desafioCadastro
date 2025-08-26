@@ -1,11 +1,32 @@
 package Util;
 
+import model.Pet;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputUtil {
     private InputUtil() {
+    }
+
+    public static String getPetName(Scanner scanner) {
+        while (true) {
+            String name = scanner.nextLine().trim();
+
+            if (name.isEmpty()) {
+                name = (ConstantForNoData.DADO_NAO_INFORMADO);
+            } else {
+                Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}( {1,2}[a-zA-Z]{3,})*$");
+                Matcher matcher = pattern.matcher(name);
+
+                if (!matcher.matches()) {
+                    System.out.println("Entrada inválida! Certifique-se de fornecer nome e sobrenome.");
+                    continue;
+                }
+            }
+            return name;
+        }
     }
 
     public static Float getPetAge(Scanner scanner) {
@@ -96,6 +117,25 @@ public class InputUtil {
                 if (!matcher.matches()) {
                     System.out.println("Nome inválido para endereço");
                     continue;
+                }
+            }
+            return input;
+        }
+    }
+
+    public static String getHouseNumberInput(String message, Scanner scanner) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                input = ConstantForNoData.DADO_NAO_INFORMADO;
+            } else {
+                Pattern pattern = Pattern.compile("^[\\p{L}0-9 .-]+$");
+                Matcher matcher = pattern.matcher(input);
+
+                if (!matcher.matches()) {
+                    System.out.println("Entrada inválida para número da casa");
                 }
             }
             return input;

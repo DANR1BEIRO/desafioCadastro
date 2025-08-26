@@ -1,5 +1,7 @@
 package repository;
+
 import model.Pet;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +25,7 @@ public class PetRepository {
             bufferedWriter.newLine();
             bufferedWriter.write("3 - " + pet.getGender());
             bufferedWriter.newLine();
-            bufferedWriter.write("4 - " + pet.getAdress());
+            bufferedWriter.write("4 - " + pet.getAddress());
             bufferedWriter.newLine();
             bufferedWriter.write("5 - " + pet.getAge());
             bufferedWriter.newLine();

@@ -8,7 +8,6 @@ import model.Gender;
 import model.Pet;
 import model.Type;
 import repository.PetRepository;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -37,18 +36,8 @@ public class PetService {
                 System.out.println(line);
 
                 if (line.startsWith("Digite nome e sobrenome do pet:")) {
-                    String name = scanner.nextLine().trim();
-                    if (name.isEmpty()) {
-                        novoPet.setName(ConstantForNoData.DADO_NAO_INFORMADO);
-                    } else {
-                        Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}( {1,2}[a-zA-Z]{3,})$");
-                        Matcher matcher = pattern.matcher(name);
-                        if (matcher.matches()) {
-                            novoPet.setName(name);
-                        } else {
-                            throw new IllegalArgumentException("Entrada inválida! Certifique-se de fornecer nome e sobrenome.");
-                        }
-                    }
+                    String name = InputUtil.getPetName(scanner);
+                    novoPet.setName(name);
                 }
 
                 if (line.startsWith("Tipo do pet:")) {
@@ -94,15 +83,15 @@ public class PetService {
                 }
 
                 if (line.startsWith("Endereço que o pet foi encontrado:")) {
-                    Address addressModel = new Address();
-                    String houseNumber = InputUtil.getStringAddress("Número da casa: ", scanner);
+                    Address address = new Address();
+                    String houseNumber = InputUtil.getHouseNumberInput("Número da casa: ", scanner);
                     String street = InputUtil.getStringAddress("Nome da rua: ", scanner);
                     String city = InputUtil.getStringAddress("Nome da cidade: ", scanner);
 
-                    addressModel.setHouseNumber(houseNumber);
-                    addressModel.setStreet(street);
-                    addressModel.setCity(city);
-
+                    address.setHouseNumber(houseNumber);
+                    address.setStreet(street);
+                    address.setCity(city);
+                    novoPet.setAddress(address);
                 }
 
                 if (line.startsWith("Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses")) {
