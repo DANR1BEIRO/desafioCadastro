@@ -6,7 +6,7 @@ public class Pet {
     private String name;
     private Type type;
     private Gender gender;
-    private Address adress;
+    private Address address;
     private Float age;
     private Float weight;
     private String breed;
@@ -19,7 +19,7 @@ public class Pet {
         this.name = name;
         this.type = typeModel;
         this.gender = genderModel;
-        this.adress = addressModel;
+        this.address = addressModel;
         this.age = age;
         this.weight = weight;
         this.breed = breed;
@@ -57,12 +57,12 @@ public class Pet {
         this.gender = gender;
     }
 
-    public Address getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress(Address adress) {
-        this.adress = adress;
+    public void setAddress(Address adress) {
+        this.address = adress;
     }
 
     public Float getAge() {
