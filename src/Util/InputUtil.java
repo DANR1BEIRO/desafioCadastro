@@ -1,9 +1,7 @@
 package Util;
 
 import model.Gender;
-import model.Pet;
 import model.Type;
-
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,6 +73,46 @@ public class InputUtil {
         }
     }
 
+    public static String getStringAddress(String message, Scanner scanner) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                input = ConstantForNoData.DADO_NAO_INFORMADO;
+
+            } else {
+                Pattern pattern = Pattern.compile("^(\\p{L}[\\p{L}0-9.-]*)+( \\p{L}[\\p{L}0-9.-]{1,})*$", Pattern.UNICODE_CHARACTER_CLASS);
+                Matcher matcher = pattern.matcher(input);
+
+                if (!matcher.matches()) {
+                    System.out.println("Nome inválido para endereço");
+                    continue;
+                }
+            }
+            return input;
+        }
+    }
+
+    public static String getHouseNumberInput(String message, Scanner scanner) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                input = ConstantForNoData.DADO_NAO_INFORMADO;
+            } else {
+                Pattern pattern = Pattern.compile("^[\\p{L}0-9 .-]+$");
+                Matcher matcher = pattern.matcher(input);
+
+                if (!matcher.matches()) {
+                    System.out.println("Entrada inválida para número da casa");
+                }
+            }
+            return input;
+        }
+    }
+
     public static Float getPetAge(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine().trim().replace(",", ".");
@@ -131,6 +169,24 @@ public class InputUtil {
         }
     }
 
+    public static String getPetBreed(Scanner scanner) {
+        while (true) {
+            String breed = scanner.nextLine().trim();
+
+            if (breed.isEmpty()) {
+                breed = ConstantForNoData.DADO_NAO_INFORMADO;
+            }
+            Pattern pattern = Pattern.compile("^\\p{L}{2,}$", Pattern.UNICODE_CHARACTER_CLASS);
+            Matcher matcher = pattern.matcher(breed);
+
+            if (!matcher.matches()) {
+                System.out.println("Entrada inválida! Apenas letras são permitidas para raça");
+                continue;
+            }
+            return breed;
+        }
+    }
+
     public static int getIntMenuOptions(String message, Scanner scanner) {
         while (true) {
             System.out.print(message);
@@ -145,46 +201,6 @@ public class InputUtil {
                 continue;
             }
             return Integer.parseInt(input);
-        }
-    }
-
-    public static String getStringAddress(String message, Scanner scanner) {
-        while (true) {
-            System.out.print(message);
-            String input = scanner.nextLine().trim();
-
-            if (input.isEmpty()) {
-                input = ConstantForNoData.DADO_NAO_INFORMADO;
-
-            } else {
-                Pattern pattern = Pattern.compile("^(\\p{L}[\\p{L}0-9.-]*)+( \\p{L}[\\p{L}0-9.-]{1,})*$", Pattern.UNICODE_CHARACTER_CLASS);
-                Matcher matcher = pattern.matcher(input);
-
-                if (!matcher.matches()) {
-                    System.out.println("Nome inválido para endereço");
-                    continue;
-                }
-            }
-            return input;
-        }
-    }
-
-    public static String getHouseNumberInput(String message, Scanner scanner) {
-        while (true) {
-            System.out.print(message);
-            String input = scanner.nextLine().trim();
-
-            if (input.isEmpty()) {
-                input = ConstantForNoData.DADO_NAO_INFORMADO;
-            } else {
-                Pattern pattern = Pattern.compile("^[\\p{L}0-9 .-]+$");
-                Matcher matcher = pattern.matcher(input);
-
-                if (!matcher.matches()) {
-                    System.out.println("Entrada inválida para número da casa");
-                }
-            }
-            return input;
         }
     }
 }

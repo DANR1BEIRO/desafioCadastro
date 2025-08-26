@@ -52,14 +52,11 @@ public class PetService {
                 }
 
                 if (line.startsWith("Endereço que o pet foi encontrado:")) {
-                    Address address = new Address();
-                    String houseNumber = InputUtil.getHouseNumberInput("Número da casa: ", scanner);
-                    String street = InputUtil.getStringAddress("Nome da rua: ", scanner);
-                    String city = InputUtil.getStringAddress("Nome da cidade: ", scanner);
+                    Address address = new Address(
+                            InputUtil.getHouseNumberInput("Número da casa: ", scanner),
+                            InputUtil.getStringAddress("Nome da rua: ", scanner),
+                            InputUtil.getStringAddress("Nome da cidade: ", scanner));
 
-                    address.setHouseNumber(houseNumber);
-                    address.setStreet(street);
-                    address.setCity(city);
                     novoPet.setAddress(address);
                 }
 
@@ -74,19 +71,8 @@ public class PetService {
                 }
 
                 if (line.startsWith("Raça do pet:")) {
-                    String breed = scanner.nextLine();
-
-                    if (breed.isEmpty()) {
-                        breed = ConstantForNoData.DADO_NAO_INFORMADO;
-                    }
-                    Pattern pattern = Pattern.compile("^\\p{L}{2,}$", Pattern.UNICODE_CHARACTER_CLASS);
-                    Matcher matcher = pattern.matcher(breed);
-
-                    if (matcher.matches()) {
-                        novoPet.setBreed(breed);
-                    } else {
-                        throw new IllegalArgumentException("Entrada inválida! Apenas letras são permitidas para raça");
-                    }
+                    String breed = InputUtil.getPetBreed(scanner);
+                    novoPet.setBreed(breed);
                 }
             }
         } catch (IOException e) {
