@@ -41,24 +41,8 @@ public class PetService {
                 }
 
                 if (line.startsWith("Tipo do pet:")) {
-                    System.out.println("1 - Cachorro\n2 - Gato");
-                    String type = scanner.nextLine().trim();
-
-                    if (type.isEmpty()) {
-                        throw new IllegalArgumentException("Campos vazios não são permitidos");
-                    } else {
-                        switch (type) {
-                            case "1" -> {
-                                novoPet.setType(Type.CACHORRO);
-                                System.out.println("Escolheu: " + Type.CACHORRO.getDescription());
-                            }
-                            case "2" -> {
-                                novoPet.setType(Type.GATO);
-                                System.out.println("Escolheu: " + Type.GATO.getDescription());
-                            }
-                            default -> throw new IllegalArgumentException("Selecione uma das opções disponíveis");
-                        }
-                    }
+                    Type type = InputUtil.getPetType(scanner);
+                    novoPet.setType(type);
                 }
 
                 if (line.startsWith("Sexo do pet:")) {

@@ -1,6 +1,7 @@
 package Util;
 
 import model.Pet;
+import model.Type;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -26,6 +27,30 @@ public class InputUtil {
                 }
             }
             return name;
+        }
+    }
+
+    public static Type getPetType(Scanner scanner) {
+        while (true) {
+            System.out.println("1 - Cachorro\n2 - Gato");
+            String type = scanner.nextLine().trim();
+
+            if (type.isEmpty()) {
+                System.out.println("Campos vazios não são permitidos");
+
+            } else {
+                switch (type) {
+                    case "1" -> {
+                        return Type.CACHORRO;
+                    }
+                    case "2" -> {
+                        return Type.GATO;
+                    }
+                    default -> {
+                        System.out.println("Selecione uma das opções disponíveis");
+                    }
+                }
+            }
         }
     }
 
