@@ -1,5 +1,6 @@
 package Util;
 
+import model.Gender;
 import model.Pet;
 import model.Type;
 
@@ -46,9 +47,29 @@ public class InputUtil {
                     case "2" -> {
                         return Type.GATO;
                     }
-                    default -> {
-                        System.out.println("Selecione uma das opções disponíveis");
+                    default -> System.out.println("Selecione uma das opções disponíveis");
+                }
+            }
+        }
+    }
+
+    public static Gender getPetGender(Scanner scanner) {
+        while (true) {
+            System.out.println("1 - Macho\n2 - Fêmea");
+            String gender = scanner.nextLine().trim();
+
+            if (gender.isEmpty()) {
+                System.out.println("Campos vazios não são permitidos");
+
+            } else {
+                switch (gender) {
+                    case "1" -> {
+                        return Gender.MACHO;
                     }
+                    case "2" -> {
+                        return Gender.FEMEA;
+                    }
+                    default -> System.out.println("Selecione uma das opções disponíveis");
                 }
             }
         }

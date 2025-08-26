@@ -8,6 +8,7 @@ import model.Gender;
 import model.Pet;
 import model.Type;
 import repository.PetRepository;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -46,24 +47,8 @@ public class PetService {
                 }
 
                 if (line.startsWith("Sexo do pet:")) {
-                    System.out.println("1 - Macho\n2 - Fêmea");
-                    String gender = scanner.nextLine().trim();
-
-                    if (gender.isEmpty()) {
-                        throw new IllegalArgumentException("Campos vazios não são permitidos");
-                    } else {
-                        switch (gender) {
-                            case "1" -> {
-                                novoPet.setGender(Gender.MACHO);
-                                System.out.println("Escolheu: " + Gender.MACHO.getDescription());
-                            }
-                            case "2" -> {
-                                novoPet.setGender(Gender.FEMEA);
-                                System.out.println("Escolheu: " + Gender.FEMEA.getDescription());
-                            }
-                            default -> throw new IllegalArgumentException("Selecione uma das opções disponíveis");
-                        }
-                    }
+                    Gender gender = InputUtil.getPetGender(scanner);
+                    novoPet.setGender(gender);
                 }
 
                 if (line.startsWith("Endereço que o pet foi encontrado:")) {
