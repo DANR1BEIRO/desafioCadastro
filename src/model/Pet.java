@@ -25,6 +25,17 @@ public class Pet {
         this.breed = breed;
     }
 
+    @Override
+    public String toString() {
+        return this.name +
+                " - " + this.type +
+                " - " + this.gender +
+                " - " + this.address.toString() +
+                " - " + this.age.intValue() +
+                " anos - " + this.weight.intValue() +
+                "kg - " + this.breed;
+    }
+
     public int getId() {
         return id;
     }
