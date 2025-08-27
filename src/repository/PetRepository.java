@@ -1,14 +1,20 @@
 package repository;
 
+import model.Address;
+import model.Gender;
 import model.Pet;
+import model.Type;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PetRepository {
 
     public void salvar(Pet pet) {
+
         File directory = new File("PetsCadastrados");
         if (!directory.exists()) directory.mkdirs();
 
@@ -27,9 +33,9 @@ public class PetRepository {
             bufferedWriter.newLine();
             bufferedWriter.write("4 - " + pet.getAddress());
             bufferedWriter.newLine();
-            bufferedWriter.write("5 - " + pet.getAge());
+            bufferedWriter.write("5 - " + pet.getAge() + " anos");
             bufferedWriter.newLine();
-            bufferedWriter.write("6 - " + pet.getWeight());
+            bufferedWriter.write("6 - " + pet.getWeight() + " kg");
             bufferedWriter.newLine();
             bufferedWriter.write("7 - " + pet.getBreed());
 
@@ -37,6 +43,52 @@ public class PetRepository {
             e.printStackTrace();
         }
     }
+
+    public List<Pet> buscarTodos() {
+        File petCadastrado = new File("PetsCadastrados");
+        File[] listaDePetsCadastrados = petCadastrado.listFiles();
+        List<Pet> listaDePets = new ArrayList<>();
+
+        for (File listaDePetsCadastrado : listaDePetsCadastrados) {
+            Pet newPet = new Pet();
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(listaDePetsCadastrado))) {
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    String[] split = line.trim().split(" - ");
+
+                    String key = split[0];
+                    String value = split[1];
+
+                    switch (key) {
+                        case "1" -> newPet.setName(value);
+                        case "2" -> newPet.setType(Type.valueOf(value));
+                        case "3" -> newPet.setGender(Gender.valueOf(value));
+                        case "4" -> {
+                            String[] endereco = value.split(", ");
+                            Address address = new Address(endereco[0], endereco[1], endereco[2]);
+                            newPet.setAddress(address);
+                        }
+                        case "5" -> {
+                            String[] idade = value.split(" ");
+                            newPet.setAge(Float.valueOf(idade[0]));
+                        }
+                        case "6" -> {
+                            String[] weight = value.split(" ");
+                            newPet.setWeight(Float.valueOf(weight[0]));
+                        }
+                        case "7" -> newPet.setBreed(value);
+                    }
+                }
+                listaDePets.add(newPet);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaDePets;
+    }
 }
+
 
 /*Salva e lê pets da pasta PetsCadastrados*/
