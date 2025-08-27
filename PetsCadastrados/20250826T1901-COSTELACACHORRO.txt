@@ -1,0 +1,7 @@
+1 - Costela cachorro
+2 - CACHORRO
+3 - MACHO
+4 - NÃO INFORMADO, NÃO INFORMADO, NÃO INFORMADO
+5 - 10.0 anos
+6 - 40.0 kg
+7 - rot

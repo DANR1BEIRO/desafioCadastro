@@ -2,6 +2,7 @@ package Util;
 
 import model.Gender;
 import model.Type;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

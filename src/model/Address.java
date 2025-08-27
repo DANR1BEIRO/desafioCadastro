@@ -36,7 +36,7 @@ public class Address {
         this.street = street;
     }
 
-    public String getCity() {
+    public String getCity(String stringAddress) {
         return city;
     }
 
