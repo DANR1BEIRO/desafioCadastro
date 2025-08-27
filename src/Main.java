@@ -11,13 +11,18 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PetRepository petRepository = new PetRepository();
+        PetService petService = new PetService(scanner, petRepository);
+
         FilesUtil.printMainMenuFromFile();
         int input = InputUtil.getIntMenuOptions("Escolha uma opção disponível: ", scanner);
 
         switch (input) {
-            case 1:
-                PetService petService = new PetService(scanner, petRepository);
+            case 1 -> {
                 petService.cadastrarNovoPet();
+            }
+            case 5 -> {
+                petService.buscarPetsCadastrados();
+            }
         }
     }
 }
