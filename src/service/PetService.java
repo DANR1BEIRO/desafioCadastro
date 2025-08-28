@@ -91,77 +91,142 @@ public class PetService {
 
         System.out.println("Escolha o tipo do pet (obrigatória):");
         Type type = InputUtil.getPetType(scanner);
+        int counter = 0;
 
         while (true) {
             System.out.println("Adicionar mais um critério de busca: \n1 - Sim\n2- Não");
             int input = scanner.nextInt();
 
-            switch (input) {
-                case 1 -> {
-                    System.out.println("1 - Nome\n2 - Raça\n3 - Idade\n4 - Sexo\n5 - Peso\n6 - Endereço");
-                    int inputCriterio = scanner.nextInt();
-
-                    switch (inputCriterio) {
-                        case 1 -> {
-                            name = InputUtil.getPetName(scanner);
-                        }
-                        case 2 -> {
-                            breed = InputUtil.getPetBreed(scanner);
-                        }
-                        case 3 -> {
-                            age = InputUtil.getPetAge(scanner).intValue();
-                        }
-                        case 4 -> {
-                            gender = InputUtil.getPetGender(scanner);
-                        }
-                        case 5 -> {
-                            weight = InputUtil.getPetWeight(scanner).intValue();
-                        }
-                        case 6 -> {
-                            address = new Address(
-                                    InputUtil.getHouseNumberInput("Número da casa: ", scanner),
-                                    InputUtil.getStringAddress("Nome da rua: ", scanner),
-                                    InputUtil.getStringAddress("Cidade: ", scanner));
-                        }
-                    }
-                }
-                case 2 -> {
-                    List<Pet> petsFiltrados = filtrarPorTipo(pets, type);
-                    if (name != null) {
-                        petsFiltrados = filtrarPorNome(petsFiltrados, name);
-                    }
-
-                    for (Pet petFiltrado : petsFiltrados) {
-                        System.out.println(petFiltrado);
-                    }
-                    return;
-                }
+            if (input == 2) {
+                break;
             }
+
+            if (counter >= 2) {
+                break;
+            }
+
+            if (input == 1) {
+                System.out.println("1 - Nome\n2 - Raça\n3 - Idade\n4 - Sexo\n5 - Peso\n6 - Endereço");
+                int inputCriterio = scanner.nextInt();
+
+                switch (inputCriterio) {
+                    case 1 -> name = InputUtil.getPetName(scanner);
+                    case 2 -> breed = InputUtil.getPetBreed(scanner);
+                    case 3 -> age = InputUtil.getPetAge(scanner).intValue();
+                    case 4 -> gender = InputUtil.getPetGender(scanner);
+                    case 5 -> weight = InputUtil.getPetWeight(scanner).intValue();
+                    case 6 -> address = new Address(
+                            InputUtil.getHouseNumberInput("Número da casa: ", scanner),
+                            InputUtil.getStringAddress("Nome da rua: ", scanner),
+                            InputUtil.getStringAddress("Cidade: ", scanner));
+                    default -> System.out.println("Opção inválida");
+                }
+                counter++;
+            } else {
+                System.out.println("Opção inválida! 1 para SIM e 2 para NÃO");
+            }
+        }
+
+        List<Pet> filteredPets = filterByType(pets, type);
+        if (name != null) {
+            filteredPets = filterByName(filteredPets, name);
+        }
+
+        if (breed != null) {
+            filteredPets = filterByBreed(filteredPets, breed);
+        }
+
+        if (age != null) {
+            filteredPets = filterByAge(filteredPets, age);
+        }
+
+        if (weight != null) {
+            filteredPets = filterByWeight(filteredPets, weight);
+        }
+
+        if (gender != null) {
+            filteredPets = filterByGender(filteredPets, gender);
+        }
+
+        if (address != null) {
+            filteredPets = filterByAddress(filteredPets, address.toString());
+        }
+
+        for (
+                Pet pet : filteredPets) {
+            System.out.println(pet);
         }
     }
 
-    private List<Pet> filtrarPorTipo(List<Pet> todosOsPets, Type type) {
-        List<Pet> petsFiltrados = new ArrayList<>();
-        for (Pet pet : todosOsPets) {
+    private List<Pet> filterByType(List<Pet> petList, Type type) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
             if (pet.getType().equals(type)) {
-                petsFiltrados.add(pet);
+                filteredPets.add(pet);
             }
         }
-        return petsFiltrados;
+        return filteredPets;
     }
 
-    private List<Pet> filtrarPorNome(List<Pet> todosOsPets, String name) {
-        List<Pet> petsFiltrados = new ArrayList<>();
-        for (Pet pet : todosOsPets) {
-            if (pet.getName().toLowerCase().contains(name.toLowerCase()))
-                petsFiltrados.add(pet);
+    private List<Pet> filterByName(List<Pet> petList, String name) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
+            if (pet.getName().toLowerCase().contains(name.toLowerCase())) {
+                filteredPets.add(pet);
+            }
         }
-        return petsFiltrados;
+        return filteredPets;
+    }
+
+    private List<Pet> filterByBreed(List<Pet> petList, String breed) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
+            if (pet.getBreed().toLowerCase().contains(breed.toLowerCase()))
+                filteredPets.add(pet);
+        }
+        return filteredPets;
+    }
+
+    private List<Pet> filterByAge(List<Pet> petList, Integer age) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
+            if (pet.getAge().intValue() == age) {
+                filteredPets.add(pet);
+            }
+        }
+        return filteredPets;
+    }
+
+    private List<Pet> filterByWeight(List<Pet> petList, Integer weight) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
+            if (pet.getWeight().intValue() == weight) {
+                filteredPets.add(pet);
+            }
+        }
+        return filteredPets;
+    }
+
+    private List<Pet> filterByGender(List<Pet> petList, Gender gender) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
+            if (pet.getGender() == gender) {
+                filteredPets.add(pet);
+            }
+        }
+        return filteredPets;
+    }
+
+    private List<Pet> filterByAddress(List<Pet> petList, String address) {
+        List<Pet> filteredPets = new ArrayList<>();
+        for (Pet pet : petList) {
+            if (pet.getAddress().toString().toLowerCase().contains(address.toLowerCase())) {
+                filteredPets.add(pet);
+            }
+        }
+        return filteredPets;
     }
 }
-
-
-
 
 /*Cadastrac ok
  * edita
