@@ -96,20 +96,29 @@ public class PetRepository {
         return listaDePets;
     }
 
-    /*
+    public void atualizarPet(Pet pet) {
+        /*
     Cria um arquivo com o mesmo caminho do arquivo que será deletado
     Se o arquivo existir, ele é deletado
     por fim, Salva o novo pet com os dados atualizados
      */
-    public void atualizarPet(Pet petParaAtualizar) {
 
-        File arquivoAntigo = new File("PetsCadastrados" + File.separator + petParaAtualizar.getFileName());
+        File arquivoAntigo = new File("PetsCadastrados" + File.separator + pet.getFileName());
 
         if (arquivoAntigo.exists()) {
             arquivoAntigo.delete();
         }
 
-        salvar(petParaAtualizar);
+        salvar(pet);
+    }
+
+    public void deletarPet(Pet pet) {
+
+            File arquivoAntigo = new File("PetsCadastrados" + File.separator + pet.getFileName());
+
+            if (arquivoAntigo.exists()) {
+                arquivoAntigo.delete();
+        }
     }
 }
 

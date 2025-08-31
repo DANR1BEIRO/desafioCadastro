@@ -1,7 +1,0 @@
-1 - Cachorro tres
-2 - CACHORRO
-3 - FEMEA
-4 - 32, Vegeta, itaguai
-5 - 12.0 anos
-6 - 15.0 kg
-7 - viralata

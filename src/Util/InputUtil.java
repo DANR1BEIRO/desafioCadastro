@@ -11,8 +11,9 @@ public class InputUtil {
     private InputUtil() {
     }
 
-    public static String getPetName(Scanner scanner) {
+    public static String getPetName(String message, Scanner scanner) {
         while (true) {
+            System.out.print(message);
             String name = scanner.nextLine().trim();
 
             if (name.isEmpty()) {
@@ -114,8 +115,9 @@ public class InputUtil {
         }
     }
 
-    public static Float getPetAge(Scanner scanner) {
+    public static Float getPetAge(String message,Scanner scanner) {
         while (true) {
+            System.out.print(message);
             String input = scanner.nextLine().trim().replace(",", ".");
 
             if (input.isEmpty()) {
@@ -144,8 +146,9 @@ public class InputUtil {
         }
     }
 
-    public static Float getPetWeight(Scanner scanner) {
+    public static Float getPetWeight(String message,Scanner scanner) {
         while (true) {
+            System.out.print(message);
             String input = scanner.nextLine().trim().replace(",", ".");
 
             if (input.isEmpty()) {
@@ -170,8 +173,9 @@ public class InputUtil {
         }
     }
 
-    public static String getPetBreed(Scanner scanner) {
+    public static String getPetBreed(String message,Scanner scanner) {
         while (true) {
+            System.out.print(message);
             String breed = scanner.nextLine().trim();
 
             if (breed.isEmpty()) {

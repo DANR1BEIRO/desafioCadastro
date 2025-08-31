@@ -4,7 +4,6 @@ import Util.FilesUtil;
 import repository.PetRepository;
 import service.PetService;
 
-import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -19,7 +18,11 @@ public class Main {
         switch (input) {
             case 1 -> petService.cadastrarNovoPet();
             case 2 -> petService.editarPet();
-            case 5 -> petService.buscarPetsCadastrados();
+            case 3 -> petService.deletarPetCadastrado();
+            case 4 -> petService.listarTodosOsPets();
+            case 5 -> petService.listarPetsPorCriterio();
+            //case 6 -> sair do programa
+
         }
     }
 }

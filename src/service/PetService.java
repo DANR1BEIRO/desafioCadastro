@@ -36,7 +36,7 @@ public class PetService {
                 System.out.println(line);
 
                 if (line.startsWith("Digite nome e sobrenome do pet:")) {
-                    String name = InputUtil.getPetName(scanner);
+                    String name = InputUtil.getPetName("", scanner);
                     novoPet.setName(name);
                 }
 
@@ -60,17 +60,17 @@ public class PetService {
                 }
 
                 if (line.startsWith("Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses")) {
-                    Float age = InputUtil.getPetAge(scanner);
+                    Float age = InputUtil.getPetAge("", scanner);
                     novoPet.setAge(age);
                 }
 
                 if (line.startsWith("Peso aproximado do pet:")) {
-                    Float weight = InputUtil.getPetWeight(scanner);
+                    Float weight = InputUtil.getPetWeight("", scanner);
                     novoPet.setWeight(weight);
                 }
 
                 if (line.startsWith("Raça do pet:")) {
-                    String breed = InputUtil.getPetBreed(scanner);
+                    String breed = InputUtil.getPetBreed("", scanner);
                     novoPet.setBreed(breed);
                 }
             }
@@ -80,15 +80,15 @@ public class PetService {
         petRepository.salvar(novoPet);
     }
 
-    public void buscarPetsCadastrados() {
-        List<Pet> petList = selecionarPets();
+    public void listarPetsPorCriterio() {
+        List<Pet> petList = buscarPetsCadastrados();
         for (
                 Pet pet : petList) {
             System.out.println(pet);
         }
     }
 
-    private List<Pet> selecionarPets() {
+    private List<Pet> buscarPetsCadastrados() {
 
         List<Pet> pets = petRepository.buscarTodos();
         String name = null;
@@ -119,11 +119,11 @@ public class PetService {
                 int inputCriterio = scanner.nextInt();
 
                 switch (inputCriterio) {
-                    case 1 -> name = InputUtil.getPetName(scanner);
-                    case 2 -> breed = InputUtil.getPetBreed(scanner);
-                    case 3 -> age = InputUtil.getPetAge(scanner).intValue();
+                    case 1 -> name = InputUtil.getPetName("Digite o nome: ", scanner);
+                    case 2 -> breed = InputUtil.getPetBreed("Digite a raça: ", scanner);
+                    case 3 -> age = InputUtil.getPetAge("Digite a idade: ", scanner).intValue();
                     case 4 -> gender = InputUtil.getPetGender(scanner);
-                    case 5 -> weight = InputUtil.getPetWeight(scanner).intValue();
+                    case 5 -> weight = InputUtil.getPetWeight("Digite o peso: ", scanner).intValue();
                     case 6 -> address = new Address(
                             InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                             InputUtil.getStringAddress("Nome da rua: ", scanner),
@@ -165,7 +165,7 @@ public class PetService {
     }
 
     public void editarPet() {
-        List<Pet> petList = selecionarPets();
+        List<Pet> petList = buscarPetsCadastrados();
         Pet petAtIndex;
 
         if (petList.size() == 0) {
@@ -181,7 +181,7 @@ public class PetService {
 
             System.out.println("Selecione o pet que será alterado:");
             int option = scanner.nextInt();
-
+            scanner.nextLine();
             if (option < 1 || option > petList.size()) {
                 System.out.println("Opção inválida!");
                 continue;
@@ -204,10 +204,10 @@ public class PetService {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1 -> petAtIndex.setName(InputUtil.getPetName(scanner));
-                case 2 -> petAtIndex.setAge(InputUtil.getPetAge(scanner));
-                case 3 -> petAtIndex.setWeight(InputUtil.getPetWeight(scanner));
-                case 4 -> petAtIndex.setBreed(InputUtil.getPetBreed(scanner));
+                case 1 -> petAtIndex.setName(InputUtil.getPetName("Digite o novo nome: ", scanner));
+                case 2 -> petAtIndex.setAge(InputUtil.getPetAge("Digite a nova idade: ", scanner));
+                case 3 -> petAtIndex.setWeight(InputUtil.getPetWeight("Digite o novo peso: ", scanner));
+                case 4 -> petAtIndex.setBreed(InputUtil.getPetBreed("Digite a nova raça: ", scanner));
                 case 5 -> petAtIndex.setAddress(new Address(
                         InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                         InputUtil.getStringAddress("Nome da rua: ", scanner),
@@ -219,6 +219,57 @@ public class PetService {
                 }
                 default -> System.out.println("Opção inválida!");
             }
+        }
+    }
+
+    public void deletarPetCadastrado() {
+        List<Pet> petList = buscarPetsCadastrados();
+        Pet petAtIndexth;
+
+        if (petList.size() == 0) {
+            System.out.println("Não há pets com esse critério");
+            return;
+        }
+
+        while (true) {
+            for (int i = 0; i < petList.size(); i++) {
+                System.out.println(i + 1 + " - " + petList.get(i));
+            }
+
+            System.out.print("Selecione o pet que será excluído: ");
+            int chose = scanner.nextInt();
+            scanner.nextLine();
+
+            if (chose < 1 || chose > petList.size()) {
+                System.out.println("Entrada inválda! Selecione um dos pets listados!");
+                continue;
+            }
+
+            petAtIndexth = petList.get(chose - 1);
+
+            System.out.println(
+                    "O pet " + petAtIndexth.toString() + " foi selecionado para ser deletado." +
+                            "\nConfirmar deleção\n1 - SIM\n2 - NÃO");
+
+            int simOuNao = scanner.nextInt();
+            scanner.nextLine();
+
+            if (simOuNao == 2) {
+                continue;
+            }
+
+            if (simOuNao == 1) {
+                petRepository.deletarPet(petAtIndexth);
+                System.out.println("Pet deletado com sucesso!");
+                return;
+            }
+        }
+    }
+
+    public void listarTodosOsPets() {
+        List<Pet> petList = petRepository.buscarTodos();
+        for (int i = 0; i < petList.size(); i++) {
+            System.out.println(i + 1 + " - " + petList.get(i));
         }
     }
 
