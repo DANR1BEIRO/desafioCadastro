@@ -45,13 +45,15 @@ public class PetRepository {
     }
 
     public List<Pet> buscarTodos() {
-        File petCadastrado = new File("PetsCadastrados");
-        File[] listaDePetsCadastrados = petCadastrado.listFiles();
+        File diretorioDeArmazenamentoDosPets = new File("PetsCadastrados");
+        File[] listaDePetsCadastrados = diretorioDeArmazenamentoDosPets.listFiles();
         List<Pet> listaDePets = new ArrayList<>();
 
-        for (File listaDePetsCadastrado : listaDePetsCadastrados) {
+        for (File arquivoDoPet : listaDePetsCadastrados) {
             Pet newPet = new Pet();
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(listaDePetsCadastrado))) {
+            newPet.setPetFilename(arquivoDoPet.getName());
+
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivoDoPet))) {
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
