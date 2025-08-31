@@ -17,12 +17,9 @@ public class Main {
         int input = InputUtil.getIntMenuOptions("Escolha uma opção disponível: ", scanner);
 
         switch (input) {
-            case 1 -> {
-                petService.cadastrarNovoPet();
-            }
-            case 5 -> {
-                petService.buscarPetsCadastrados();
-            }
+            case 1 -> petService.cadastrarNovoPet();
+            case 2 -> petService.editarPet();
+            case 5 -> petService.buscarPetsCadastrados();
         }
     }
 }
