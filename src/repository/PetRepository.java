@@ -15,9 +15,14 @@ public class PetRepository {
 
     public void salvar(Pet pet) {
 
+        // Cria uma pasta chamada "PetsCadastrados" na raíz do projeto
         File directory = new File("PetsCadastrados");
         if (!directory.exists()) directory.mkdirs();
 
+        /*
+        Essa parte fica responsável por criar o padrão de data/hora que será utilizado
+        para compor o nome do arquivo txt onde cada pet será armazenado.
+         */
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
         String dataFormatada = localDateTime.format(dateTimeFormatter);
@@ -89,6 +94,22 @@ public class PetRepository {
             }
         }
         return listaDePets;
+    }
+
+    /*
+    Cria um arquivo com o mesmo caminho do arquivo que será deletado
+    Se o arquivo existir, ele é deletado
+    por fim, Salva o novo pet com os dados atualizados
+     */
+    public void atualizarPet(Pet petParaAtualizar) {
+
+        File arquivoAntigo = new File("PetsCadastrados" + File.separator + petParaAtualizar.getFileName());
+
+        if (arquivoAntigo.exists()) {
+            arquivoAntigo.delete();
+        }
+
+        salvar(petParaAtualizar);
     }
 }
 
