@@ -101,7 +101,7 @@ public class Pet {
         this.breed = breed;
     }
 
-    public String getPetFilename() {
+    public String getFileName() {
         return petFilename;
     }
 
