@@ -81,6 +81,15 @@ public class PetService {
     }
 
     public void buscarPetsCadastrados() {
+        List<Pet> petList = selecionarPets();
+        for (
+                Pet pet : petList) {
+            System.out.println(pet);
+        }
+    }
+
+    private List<Pet> selecionarPets() {
+
         List<Pet> pets = petRepository.buscarTodos();
         String name = null;
         String breed = null;
@@ -94,7 +103,7 @@ public class PetService {
         int counter = 0;
 
         while (true) {
-            System.out.println("Adicionar mais um critério de busca: \n1 - Sim\n2- Não");
+            System.out.println("Adicionar mais um critério de busca: \n1 - Sim\n2 - Não");
             int input = scanner.nextInt();
 
             if (input == 2) {
@@ -152,9 +161,64 @@ public class PetService {
             filteredPets = filterByAddress(filteredPets, address.toString());
         }
 
-        for (
-                Pet pet : filteredPets) {
-            System.out.println(pet);
+        return filteredPets;
+    }
+
+    public void editarPet() {
+        List<Pet> petList = selecionarPets();
+        Pet petAtIndex;
+
+        if (petList.size() == 0) {
+            System.out.println("Não há pets com os critérios selecionados");
+            return;
+        }
+
+        while (true) {
+
+            for (int i = 0; i < petList.size(); i++) {
+                System.out.println(i + 1 + " - " + petList.get(i));
+            }
+
+            System.out.println("Selecione o pet que será alterado:");
+            int option = scanner.nextInt();
+
+            if (option < 1 || option > petList.size()) {
+                System.out.println("Opção inválida!");
+                continue;
+            }
+
+            petAtIndex = petList.get(option - 1);
+            break;
+        }
+
+        while (true) {
+            System.out.println("Selecione o campo que será alterado:" +
+                    "\n1 - Nome" +
+                    "\n2 - Idade" +
+                    "\n3 - Peso" +
+                    "\n4 - Raça" +
+                    "\n5 - Endereço" +
+                    "\n6 - Salvar e voltar");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1 -> petAtIndex.setName(InputUtil.getPetName(scanner));
+                case 2 -> petAtIndex.setAge(InputUtil.getPetAge(scanner));
+                case 3 -> petAtIndex.setWeight(InputUtil.getPetWeight(scanner));
+                case 4 -> petAtIndex.setBreed(InputUtil.getPetBreed(scanner));
+                case 5 -> petAtIndex.setAddress(new Address(
+                        InputUtil.getHouseNumberInput("Número da casa: ", scanner),
+                        InputUtil.getStringAddress("Nome da rua: ", scanner),
+                        InputUtil.getStringAddress("Cidade: ", scanner)));
+                case 6 -> {
+                    petRepository.salvar(petAtIndex);
+                    System.out.println("Informações atualizadas!");
+                    return;
+                }
+                default -> System.out.println("Opção inválida!");
+            }
         }
     }
 
@@ -218,6 +282,7 @@ public class PetService {
     }
 
     private List<Pet> filterByAddress(List<Pet> petList, String address) {
+
         List<Pet> filteredPets = new ArrayList<>();
         for (Pet pet : petList) {
             if (pet.getAddress().toString().toLowerCase().contains(address.toLowerCase())) {
@@ -226,10 +291,12 @@ public class PetService {
         }
         return filteredPets;
     }
+
+
 }
 
-/*Cadastrac ok
- * edita
+/*Cadastrar ok
+ * edita ok
  * deleta
- * lista*/
+ * lista ok */
 
