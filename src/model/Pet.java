@@ -10,6 +10,7 @@ public class Pet {
     private Float age;
     private Float weight;
     private String breed;
+    private String petFilename;
 
     public Pet() {
     }
@@ -98,5 +99,13 @@ public class Pet {
 
     public void setBreed(String breed) {
         this.breed = breed;
+    }
+
+    public String getPetFilename() {
+        return petFilename;
+    }
+
+    public void setPetFilename(String petFilename) {
+        this.petFilename = petFilename;
     }
 }
