@@ -213,7 +213,7 @@ public class PetService {
                         InputUtil.getStringAddress("Nome da rua: ", scanner),
                         InputUtil.getStringAddress("Cidade: ", scanner)));
                 case 6 -> {
-                    petRepository.salvar(petAtIndex);
+                    petRepository.atualizarPet(petAtIndex);
                     System.out.println("Informações atualizadas!");
                     return;
                 }
