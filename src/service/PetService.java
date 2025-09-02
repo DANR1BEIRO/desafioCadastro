@@ -111,6 +111,7 @@ public class PetService {
         while (true) {
             System.out.println("Adicionar mais um critério de busca: \n1 - Sim\n2 - Não");
             int input = scanner.nextInt();
+            scanner.nextLine();
 
             if (input == 2) {
                 break;
