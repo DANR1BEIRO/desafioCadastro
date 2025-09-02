@@ -1,7 +1,0 @@
-1 - gato teste
-2 - GATO
-3 - MACHO
-4 - NÃO INFORMADO, NÃO INFORMADO, NÃO INFORMADO
-5 - null anos
-6 - null kg
-7 - viralata

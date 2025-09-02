@@ -35,22 +35,22 @@ public class PetService {
 
                 System.out.println(line);
 
-                if (line.startsWith("Digite nome e sobrenome do pet:")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_NOME)) {
                     String name = InputUtil.getPetName("", scanner);
                     novoPet.setName(name);
                 }
 
-                if (line.startsWith("Tipo do pet:")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_TIPO)) {
                     Type type = InputUtil.getPetType(scanner);
                     novoPet.setType(type);
                 }
 
-                if (line.startsWith("Sexo do pet:")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_SEXO)) {
                     Gender gender = InputUtil.getPetGender(scanner);
                     novoPet.setGender(gender);
                 }
 
-                if (line.startsWith("Endereço que o pet foi encontrado:")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_ENDERECO)) {
                     Address address = new Address(
                             InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                             InputUtil.getStringAddress("Nome da rua: ", scanner),
@@ -59,17 +59,17 @@ public class PetService {
                     novoPet.setAddress(address);
                 }
 
-                if (line.startsWith("Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_IDADE)) {
                     Float age = InputUtil.getPetAge("", scanner);
                     novoPet.setAge(age);
                 }
 
-                if (line.startsWith("Peso aproximado do pet:")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_PESO)) {
                     Float weight = InputUtil.getPetWeight("", scanner);
                     novoPet.setWeight(weight);
                 }
 
-                if (line.startsWith("Raça do pet:")) {
+                if (line.startsWith(FilesUtil.PERGUNTA_RACA)) {
                     String breed = InputUtil.getPetBreed("", scanner);
                     novoPet.setBreed(breed);
                 }
@@ -77,8 +77,14 @@ public class PetService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        petRepository.salvar(novoPet);
+        if (novoPet.getGender() != null && novoPet.getType() != null) {
+            petRepository.salvar(novoPet);
+            System.out.println("Novo pet cadastrado com sucesso!\n");
+        } else {
+            System.out.println("Falha no cadastro!");
+        }
     }
+
 
     public void listarPetsPorCriterio() {
         List<Pet> petList = buscarPetsCadastrados();
@@ -169,7 +175,7 @@ public class PetService {
         Pet petAtIndex;
 
         if (petList.size() == 0) {
-            System.out.println("Não há pets com os critérios selecionados");
+            System.out.println("Não há pets com os critérios selecionados.\n");
             return;
         }
 
@@ -342,8 +348,6 @@ public class PetService {
         }
         return filteredPets;
     }
-
-
 }
 
 /*Cadastrar ok
