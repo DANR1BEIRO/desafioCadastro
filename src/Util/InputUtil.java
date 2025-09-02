@@ -19,7 +19,7 @@ public class InputUtil {
             if (name.isEmpty()) {
                 name = (ConstantForNoData.DADO_NAO_INFORMADO);
             } else {
-                Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}( {1,2}[a-zA-Z]{3,})*$");
+                Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}( {1,2}[a-zA-Z]{1,})*$");
                 Matcher matcher = pattern.matcher(name);
 
                 if (!matcher.matches()) {
@@ -115,7 +115,7 @@ public class InputUtil {
         }
     }
 
-    public static Float getPetAge(String message,Scanner scanner) {
+    public static Float getPetAge(String message, Scanner scanner) {
         while (true) {
             System.out.print(message);
             String input = scanner.nextLine().trim().replace(",", ".");
@@ -146,7 +146,7 @@ public class InputUtil {
         }
     }
 
-    public static Float getPetWeight(String message,Scanner scanner) {
+    public static Float getPetWeight(String message, Scanner scanner) {
         while (true) {
             System.out.print(message);
             String input = scanner.nextLine().trim().replace(",", ".");
@@ -173,20 +173,21 @@ public class InputUtil {
         }
     }
 
-    public static String getPetBreed(String message,Scanner scanner) {
+    public static String getPetBreed(String message, Scanner scanner) {
         while (true) {
             System.out.print(message);
             String breed = scanner.nextLine().trim();
 
             if (breed.isEmpty()) {
-                breed = ConstantForNoData.DADO_NAO_INFORMADO;
-            }
-            Pattern pattern = Pattern.compile("^\\p{L}{2,}$", Pattern.UNICODE_CHARACTER_CLASS);
-            Matcher matcher = pattern.matcher(breed);
+                breed = (ConstantForNoData.DADO_NAO_INFORMADO);
+            } else {
+                Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}( {1,2}[a-zA-Z]{3,})*$");
+                Matcher matcher = pattern.matcher(breed);
 
-            if (!matcher.matches()) {
-                System.out.println("Entrada inválida! Apenas letras são permitidas para raça");
-                continue;
+                if (!matcher.matches()) {
+                    System.out.println("Entrada inválida! Certifique-se de fornecer nome e sobrenome.");
+                    continue;
+                }
             }
             return breed;
         }
