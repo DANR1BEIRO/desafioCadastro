@@ -4,7 +4,6 @@ import model.Address;
 import model.Gender;
 import model.Pet;
 import model.Type;
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -78,11 +77,19 @@ public class PetRepository {
                         }
                         case "5" -> {
                             String[] idade = value.split(" ");
-                            newPet.setAge(Float.valueOf(idade[0]));
+                            if (idade[0].equals("null")) {
+                                newPet.setAge(null);
+                            } else {
+                                newPet.setAge(Float.valueOf(idade[0]));
+                            }
                         }
                         case "6" -> {
                             String[] weight = value.split(" ");
-                            newPet.setWeight(Float.valueOf(weight[0]));
+                            if (weight[0].equals("null")) {
+                                newPet.setWeight(null);
+                            } else {
+                                newPet.setWeight(Float.valueOf(weight[0]));
+                            }
                         }
                         case "7" -> newPet.setBreed(value);
                     }
@@ -114,10 +121,10 @@ public class PetRepository {
 
     public void deletarPet(Pet pet) {
 
-            File arquivoAntigo = new File("PetsCadastrados" + File.separator + pet.getFileName());
+        File arquivoAntigo = new File("PetsCadastrados" + File.separator + pet.getFileName());
 
-            if (arquivoAntigo.exists()) {
-                arquivoAntigo.delete();
+        if (arquivoAntigo.exists()) {
+            arquivoAntigo.delete();
         }
     }
 }
