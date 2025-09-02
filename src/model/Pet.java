@@ -28,12 +28,21 @@ public class Pet {
 
     @Override
     public String toString() {
+        Integer age = null;
+        Integer weight = null;
+
+        if (this.age != null) {
+            age = this.age.intValue();
+        }
+        if (this.weight != null) {
+            weight = this.weight.intValue();
+        }
         return this.name +
                 " - " + this.type +
                 " - " + this.gender +
                 " - " + this.address.toString() +
-                " - " + this.age.intValue() +
-                " anos - " + this.weight.intValue() +
+                " - " + age +
+                " anos - " + weight +
                 "kg - " + this.breed;
     }
 
