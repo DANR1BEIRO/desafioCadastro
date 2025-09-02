@@ -4,6 +4,13 @@ import java.io.*;
 
 public class FilesUtil {
 
+    public static final String PERGUNTA_NOME = "Digite nome e sobrenome do pet:";
+    public static final String PERGUNTA_TIPO = "Tipo do pet:";
+    public static final String PERGUNTA_SEXO = "Sexo do pet:";
+    public static final String PERGUNTA_ENDERECO = "Endereço que o pet foi encontrado:";
+    public static final String PERGUNTA_IDADE = "Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses):";
+    public static final String PERGUNTA_PESO = "Peso aproximado do pet:";
+    public static final String PERGUNTA_RACA = "Raça do pet:";
     private FilesUtil() {
     }
 
@@ -47,19 +54,19 @@ public class FilesUtil {
         File file = new File("FormularioDeCadastroDoPet.txt");
         if (!file.exists()) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
-                bufferedWriter.write("Digite nome e sobrenome do pet:");
+                bufferedWriter.write(PERGUNTA_NOME);
                 bufferedWriter.newLine();
-                bufferedWriter.write("Tipo do pet:");
+                bufferedWriter.write(PERGUNTA_TIPO);
                 bufferedWriter.newLine();
-                bufferedWriter.write("Sexo do pet:");
+                bufferedWriter.write(PERGUNTA_SEXO);
                 bufferedWriter.newLine();
-                bufferedWriter.write("Endereço que o pet foi encontrado:");
+                bufferedWriter.write(PERGUNTA_ENDERECO);
                 bufferedWriter.newLine();
-                bufferedWriter.write("Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses):");
+                bufferedWriter.write(PERGUNTA_IDADE);
                 bufferedWriter.newLine();
-                bufferedWriter.write("Peso aproximado do pet:");
+                bufferedWriter.write(PERGUNTA_PESO);
                 bufferedWriter.newLine();
-                bufferedWriter.write("Raça do pet:");
+                bufferedWriter.write(PERGUNTA_RACA);
                 bufferedWriter.flush();
             } catch (IOException e) {
                 e.printStackTrace();
