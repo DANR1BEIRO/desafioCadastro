@@ -33,6 +33,7 @@ public class PetService {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
 
+                System.out.println();
                 System.out.println(line);
 
                 if (line.startsWith(FilesUtil.PERGUNTA_NOME)) {
@@ -52,8 +53,8 @@ public class PetService {
 
                 if (line.startsWith(FilesUtil.PERGUNTA_ENDERECO)) {
                     Address address = new Address(
-                            InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                             InputUtil.getStringAddress("Nome da rua: ", scanner),
+                            InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                             InputUtil.getStringAddress("Nome da cidade: ", scanner));
 
                     novoPet.setAddress(address);
@@ -79,18 +80,22 @@ public class PetService {
         }
         if (novoPet.getGender() != null && novoPet.getType() != null) {
             petRepository.salvar(novoPet);
-            System.out.println("Novo pet cadastrado com sucesso!\n");
+            System.out.println("\nNovo pet cadastrado com sucesso!\n");
         } else {
             System.out.println("Falha no cadastro!");
         }
     }
 
-
     public void listarPetsPorCriterio() {
         List<Pet> petList = buscarPetsCadastrados();
-        for (
-                Pet pet : petList) {
-            System.out.println(pet);
+        if (petList.isEmpty()) {
+            System.out.println("Não foram encontrados pets com esses critérios.\n");
+        } else {
+            System.out.println("Pets encontrados:");
+            for (Pet pet : petList) {
+                System.out.println(pet);
+            }
+            System.out.println();
         }
     }
 
@@ -104,7 +109,7 @@ public class PetService {
         Integer age = null;
         Integer weight = null;
 
-        System.out.println("Escolha o tipo do pet (obrigatória):");
+        System.out.println("\nEscolha o tipo do pet (obrigatória):");
         Type type = InputUtil.getPetType(scanner);
         int counter = 0;
 
@@ -124,6 +129,7 @@ public class PetService {
             if (input == 1) {
                 System.out.println("1 - Nome\n2 - Raça\n3 - Idade\n4 - Sexo\n5 - Peso\n6 - Endereço");
                 int inputCriterio = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (inputCriterio) {
                     case 1 -> name = InputUtil.getPetName("Digite o nome: ", scanner);
@@ -182,11 +188,12 @@ public class PetService {
 
         while (true) {
 
+            System.out.println("\nLista de pets cadastrados:");
             for (int i = 0; i < petList.size(); i++) {
                 System.out.println(i + 1 + " - " + petList.get(i));
             }
 
-            System.out.println("Selecione o pet que será alterado:");
+            System.out.print("\nSelecione o pet que será alterado: ");
             int option = scanner.nextInt();
             scanner.nextLine();
             if (option < 1 || option > petList.size()) {
@@ -199,7 +206,7 @@ public class PetService {
         }
 
         while (true) {
-            System.out.println("Selecione o campo que será alterado:" +
+            System.out.println("\nSelecione o campo que será alterado:" +
                     "\n1 - Nome" +
                     "\n2 - Idade" +
                     "\n3 - Peso" +
@@ -216,12 +223,12 @@ public class PetService {
                 case 3 -> petAtIndex.setWeight(InputUtil.getPetWeight("Digite o novo peso: ", scanner));
                 case 4 -> petAtIndex.setBreed(InputUtil.getPetBreed("Digite a nova raça: ", scanner));
                 case 5 -> petAtIndex.setAddress(new Address(
-                        InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                         InputUtil.getStringAddress("Nome da rua: ", scanner),
+                        InputUtil.getHouseNumberInput("Número da casa: ", scanner),
                         InputUtil.getStringAddress("Cidade: ", scanner)));
                 case 6 -> {
                     petRepository.atualizarPet(petAtIndex);
-                    System.out.println("Informações atualizadas!");
+                    System.out.println("\nInformações atualizadas!\n");
                     return;
                 }
                 default -> System.out.println("Opção inválida!");
@@ -234,16 +241,17 @@ public class PetService {
         Pet petAtIndexth;
 
         if (petList.size() == 0) {
-            System.out.println("Não há pets com esse critério");
+            System.out.println("\nNão há pets com esse(s) critério(s).\n");
             return;
         }
 
         while (true) {
+            System.out.println("\nLista de pets cadastrados:");
             for (int i = 0; i < petList.size(); i++) {
                 System.out.println(i + 1 + " - " + petList.get(i));
             }
 
-            System.out.print("Selecione o pet que será excluído: ");
+            System.out.print("\nSelecione o pet que será excluído: ");
             int chose = scanner.nextInt();
             scanner.nextLine();
 
@@ -256,18 +264,18 @@ public class PetService {
 
             System.out.println(
                     "O pet " + petAtIndexth.toString() + " foi selecionado para ser deletado." +
-                            "\nConfirmar deleção\n1 - SIM\n2 - NÃO");
+                            "\nConfirmar deleção:\n1 - SIM\n2 - NÃO");
 
             int simOuNao = scanner.nextInt();
             scanner.nextLine();
 
             if (simOuNao == 2) {
-                continue;
+                break;
             }
 
             if (simOuNao == 1) {
                 petRepository.deletarPet(petAtIndexth);
-                System.out.println("Pet deletado com sucesso!");
+                System.out.println("\nPet deletado com sucesso!\n");
                 return;
             }
         }
@@ -275,9 +283,15 @@ public class PetService {
 
     public void listarTodosOsPets() {
         List<Pet> petList = petRepository.buscarTodos();
-        for (int i = 0; i < petList.size(); i++) {
-            System.out.println(i + 1 + " - " + petList.get(i));
+        if (petList.size() == 0) {
+            System.out.println("\nNão há pets cadastrados.");
+        } else {
+            System.out.println("\nLista de pets cadastrados: ");
+            for (int i = 0; i < petList.size(); i++) {
+                System.out.println(i + 1 + " - " + petList.get(i));
+            }
         }
+        System.out.println();
     }
 
     private List<Pet> filterByType(List<Pet> petList, Type type) {
@@ -353,6 +367,6 @@ public class PetService {
 
 /*Cadastrar ok
  * edita ok
- * deleta
+ * deleta ok
  * lista ok */
 

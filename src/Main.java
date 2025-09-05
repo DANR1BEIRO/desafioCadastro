@@ -22,6 +22,7 @@ public class Main {
                 case 4 -> petService.listarTodosOsPets();
                 case 5 -> petService.listarPetsPorCriterio();
                 case 6 -> {
+                    System.out.println("Programa encerrado.");
                     return;
                 }
             }

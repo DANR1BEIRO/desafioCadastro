@@ -40,10 +40,10 @@ public class Pet {
         return this.name +
                 " - " + this.type +
                 " - " + this.gender +
-                " - " + this.address.toString() +
+                " - Endereço: " + this.address.toString() +
                 " - " + age +
-                " anos - " + weight +
-                "kg - " + this.breed;
+                " ano(s) - " + weight +
+                "kg - " + "Raça: " + this.breed ;
     }
 
     public int getId() {

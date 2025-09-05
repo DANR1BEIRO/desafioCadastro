@@ -128,6 +128,3 @@ public class PetRepository {
         }
     }
 }
-
-
-/*Salva e lê pets da pasta PetsCadastrados*/

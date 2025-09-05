@@ -9,7 +9,7 @@ public class FilesUtil {
     public static final String PERGUNTA_SEXO = "Sexo do pet:";
     public static final String PERGUNTA_ENDERECO = "Endereço que o pet foi encontrado:";
     public static final String PERGUNTA_IDADE = "Idade aproximada do pet em anos (decimal para meses. Ex: 0.5 ano = 6 meses):";
-    public static final String PERGUNTA_PESO = "Peso aproximado do pet:";
+    public static final String PERGUNTA_PESO = "Peso aproximado do pet (kg):";
     public static final String PERGUNTA_RACA = "Raça do pet:";
     private FilesUtil() {
     }
